@@ -3,9 +3,9 @@ Contributors: kasperta
 Donate link: http://www.tikweb.dk/donate/
 Tags: mailpoet, gravity forms, gravityforms, form, forms, contact form, wysija, woocommerce, e-commerce, mail, email, e-mail, extension, add-on, newsletter, newsletters, subscription, checkout, list, lists, double opt-in
 Requires at least: 4.6
-Tested up to: 4.8.1
+Tested up to: 4.9
 Requires PHP: 5.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 Create MailPoet 3 newsletter subscribers from Gravity Form entries.
 
@@ -36,6 +36,9 @@ Requires Gravity Forms version 1.9.16 or higher and MailPoet 3.0 or higher.
 
 == Changelog ==
 
+= 1.0.2 - 2017-11-29 =
+* Fixed text domain add-on-gravity-forms-mailpoet
+
 = 1.0.1 =
 * Fixed Text Domain
 
@@ -44,8 +47,5 @@ Requires Gravity Forms version 1.9.16 or higher and MailPoet 3.0 or higher.
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-* Fixed Text Domain
-
-= 1.0.0 =
-* Initial release.
+= x.0.0 =
+* There are nothing else needed, than upgrading from the WordPress plugins screen.
