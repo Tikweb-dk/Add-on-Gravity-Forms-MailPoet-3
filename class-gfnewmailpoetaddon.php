@@ -35,7 +35,7 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
 
 		if( basename($_SERVER['PHP_SELF']) == "plugins.php" ) {
             //loading translations
-            load_plugin_textdomain('gravity-forms-mailpoet', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages');
+            load_plugin_textdomain(add-on-gravity-forms-mailpoet, FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages');
         }
 
         // Hide plugin_page if already shown
@@ -50,9 +50,9 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
 	public function plugin_page() {
 		// Set option to only display plugin page once
 		update_option('gf_new_mailpoet_plugin_page', true);
-		echo '<h3>'.__('Where did my feeds go?', 'gravity-forms-mailpoet').'</h3>';
-		echo '<p>'.__('Your feeds for MailPoet can now be found under each form, under <strong>Form Settings -> MailPoet</strong>.', 'gravity-forms-mailpoet'). '</p>';
-		echo '<p><a class="button-primary" href="'.admin_url('?page=gf_edit_forms&view=settings&subview=gravity-forms-mailpoet').'">'.__('Add your feeds now', 'gravity-forms-mailpoet').'</a></p>';
+		echo '<h3>'.__('Where did my feeds go?', add-on-gravity-forms-mailpoet).'</h3>';
+		echo '<p>'.__('Your feeds for MailPoet can now be found under each form, under <strong>Form Settings -> MailPoet</strong>.', add-on-gravity-forms-mailpoet). '</p>';
+		echo '<p><a class="button-primary" href="'.admin_url('?page=gf_edit_forms&view=settings&subview=gravity-forms-mailpoet').'">'.__('Add your feeds now', add-on-gravity-forms-mailpoet).'</a></p>';
 	}
 
 	/**
@@ -60,7 +60,7 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
 	 */
 	public function remove_plugin_page_menu($menu){
 		foreach( $menu as $k=>$v ){
-			if( $v['name'] == 'gravity-forms-mailpoet' ){
+			if( $v['name'] == add-on-gravity-forms-mailpoet ){
 				unset($menu[$k]);
 				return $menu;
 			}
@@ -123,33 +123,33 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
 
 		return array(
 			array(
-				'title'  => esc_html__( 'MailPoet Feed Settings', 'gravity-forms-mailpoet' ),
+				'title'  => esc_html__( 'MailPoet Feed Settings', add-on-gravity-forms-mailpoet ),
 				'fields' => array(
 					array(
-						'label'   => esc_html__( 'Feed name', 'gravity-forms-mailpoet' ),
+						'label'   => esc_html__( 'Feed name', add-on-gravity-forms-mailpoet ),
 						'type'    => 'text',
 						'name'    => 'feedname',
 						'class'   => '',
 					),
 					array(
 						'name'      => 'mappedfields',
-						'label'     => esc_html__( 'Map Fields', 'gravity-forms-mailpoet' ),
+						'label'     => esc_html__( 'Map Fields', add-on-gravity-forms-mailpoet ),
 						'type'      => 'field_map',
-						'tooltip'   => esc_html__( 'Associate your MailPoet newsletter questions to the appropriate Gravity Form fields by selecting.', 'gravity-forms-mailpoet'),
+						'tooltip'   => esc_html__( 'Associate your MailPoet newsletter questions to the appropriate Gravity Form fields by selecting.', add-on-gravity-forms-mailpoet),
 						'field_map' => array(
 							array(
 								'name'     => 'first_name',
-								'label'    => esc_html__( 'First Name', 'gravity-forms-mailpoet' ),
+								'label'    => esc_html__( 'First Name', add-on-gravity-forms-mailpoet ),
 								'required' => 0,
 							),
 							array(
 								'name'       => 'last_name',
-								'label'      => esc_html__( 'Last Name', 'gravity-forms-mailpoet' ),
+								'label'      => esc_html__( 'Last Name', add-on-gravity-forms-mailpoet ),
 								'required'   => 0,
 							),
 							array(
 								'name'       => 'email',
-								'label'      => esc_html__( 'Email', 'gravity-forms-mailpoet' ),
+								'label'      => esc_html__( 'Email', add-on-gravity-forms-mailpoet ),
 								'required'   => 0,
 								'field_type' => array('email', 'hidden'),
 							),
@@ -158,10 +158,10 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
 					$lists,
 					array(
 						'name'           => 'condition',
-						'label'          => esc_html__( 'Condition', 'gravity-forms-mailpoet' ),
+						'label'          => esc_html__( 'Condition', add-on-gravity-forms-mailpoet ),
 						'type'           => 'feed_condition',
-						'checkbox_label' => esc_html__( 'Enable Condition', 'gravity-forms-mailpoet' ),
-						'instructions'   => esc_html__( 'Process this feed if', 'gravity-forms-mailpoet' ),
+						'checkbox_label' => esc_html__( 'Enable Condition', add-on-gravity-forms-mailpoet ),
+						'instructions'   => esc_html__( 'Process this feed if', add-on-gravity-forms-mailpoet ),
 					),
 				),
 			),
@@ -175,8 +175,8 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
 	 */
 	public function feed_list_columns() {
 		return array(
-			'feedname'       => esc_html__( 'Name', 'gravity-forms-mailpoet' ),
-			'mailpoetlists'  => esc_html__( 'MailPoet Lists', 'gravity-forms-mailpoet' ),
+			'feedname'       => esc_html__( 'Name', add-on-gravity-forms-mailpoet ),
+			'mailpoetlists'  => esc_html__( 'MailPoet Lists', add-on-gravity-forms-mailpoet ),
 		);
 	}
 
@@ -213,14 +213,14 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
 
 		$list_array = array(
 			'name'    => 'mailpoetlists',
-			'label'   => esc_html__( 'MailPoet Lists', 'gravity-forms-mailpoet' ),
+			'label'   => esc_html__( 'MailPoet Lists', add-on-gravity-forms-mailpoet ),
 			'type'    => 'checkbox',
-			'tooltip' => esc_html__( 'Select the MailPoet lists you would like to add your contacts to.', 'gravity-forms-mailpoet' ),
+			'tooltip' => esc_html__( 'Select the MailPoet lists you would like to add your contacts to.', add-on-gravity-forms-mailpoet ),
 			'choices' => array(),
 		);
 		if( !$lists ) {
 			self::log_debug("Could not load MailPoet lists.");
-			$list_array['choices'][] = array('label' => esc_html__('Could not load MailPoet lists.', 'gravity-forms-mailpoet'));
+			$list_array['choices'][] = array('label' => esc_html__('Could not load MailPoet lists.', add-on-gravity-forms-mailpoet));
 
 		} else {
 			foreach ($lists as $l){

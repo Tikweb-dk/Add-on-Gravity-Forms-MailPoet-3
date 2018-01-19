@@ -5,7 +5,7 @@ Tags: mailpoet, gravity forms, gravityforms, form, forms, contact form, wysija, 
 Requires at least: 4.6
 Tested up to: 4.8.1
 Requires PHP: 5.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 
 Create MailPoet 3 newsletter subscribers from Gravity Form entries.
 
@@ -36,10 +36,16 @@ Requires Gravity Forms version 1.9.16 or higher and MailPoet 3.0 or higher.
 
 == Changelog ==
 
+= 1.0.1 =
+* Fixed Text Domain
+
 = 1.0.0 =
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+* Fixed Text Domain
 
 = 1.0.0 =
 * Initial release.
