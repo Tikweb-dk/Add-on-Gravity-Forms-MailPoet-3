@@ -9,7 +9,7 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
 	protected $_path = 'add-on-gravity-forms-mailpoet/gravity-forms-mailpoet.php';
 	protected $_full_path = __FILE__;
 	protected $_title = 'Add-on Gravity Forms - MailPoet 3';
-	protected $_short_title = 'Add-on Gravity Forms';
+	protected $_short_title = 'Mailpoet';
 
 	private static $_instance = null;
 
@@ -107,8 +107,22 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
 		);
 
 		try {
-		  $subscriber = \MailPoet\API\API::MP('v1')->addSubscriber($subscriber_data, $mailpoetlists);
+		  $subscriber_data = \MailPoet\API\API::MP('v1')->addSubscriber($subscriber_data, $mailpoetlists);
 		} catch(Exception $exception) {
+			
+			if ( 'This subscriber already exists.' == $exception->getMessage() ){
+			
+				try {
+
+					$subscriber = \MailPoet\API\API::MP('v1')->subscribeToLists($subscriber_data['email'], $mailpoetlists);
+				  
+				} catch(Exception $exception) {
+					
+				}
+
+			} else {
+				
+			}
 		}
 
 	}

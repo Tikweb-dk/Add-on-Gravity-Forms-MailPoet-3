@@ -1,0 +1,19 @@
+== Changelog ==
+
+= 1.0.3 - 2018-03-07 =
+* Subscribed people now allow to be added to the new lists.
+* Changed the short title of 'Gravity Form' menu.
+
+= 1.0.2 - 2017-11-29 =
+* Fixed text domain add-on-gravity-forms-mailpoet
+
+= 1.0.1 =
+* Fixed Text Domain
+
+= 1.0.0 =
+* Initial release.
+
+== Upgrade Notice ==
+
+= x.0.0 =
+* There are nothing else needed, than upgrading from the WordPress plugins screen.

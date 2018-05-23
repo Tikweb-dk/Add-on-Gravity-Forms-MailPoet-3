@@ -5,7 +5,7 @@ Tags: mailpoet, gravity forms, gravityforms, form, forms, contact form, wysija, 
 Requires at least: 4.6
 Tested up to: 4.9
 Requires PHP: 5.2
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 
 Create MailPoet 3 newsletter subscribers from Gravity Form entries.
 
@@ -36,16 +36,9 @@ Requires Gravity Forms version 1.9.16 or higher and MailPoet 3.0 or higher.
 
 == Changelog ==
 
-= 1.0.2 - 2017-11-29 =
-* Fixed text domain add-on-gravity-forms-mailpoet
+= 1.1.0 - 2018-05-22 =
+* Added a new features, register with the lists that the user wants, not that all are mandatory.
 
-= 1.0.1 =
-* Fixed Text Domain
+All possible lists are created and that the user chooses which one to register.
 
-= 1.0.0 =
-* Initial release.
-
-== Upgrade Notice ==
-
-= x.0.0 =
-* There are nothing else needed, than upgrading from the WordPress plugins screen.
+[Changelog](https://plugins.svn.wordpress.org/add-on-gravity-forms-mailpoet/trunk/changelog.txt)
