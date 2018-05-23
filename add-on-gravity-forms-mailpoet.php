@@ -43,8 +43,6 @@ class GF_New_MailPoet_Startup {
 
 		GFAddOn::register( 'GFNEWMailPoetAddOn' );
 
-		// include mailpoet field
-		require_once plugin_dir_path( __FILE__ ) .'/mailpoet-fields.php';
 	}
 
 }
@@ -53,6 +51,8 @@ function gf_new_mailpoet_feed_addon() {
 	return GFNEWMailPoetAddOn::get_instance();
 }
 
+// include mailpoet field
+require_once plugin_dir_path( __FILE__ ) .'/mailpoet-fields.php';
 
 add_action('admin_notices', 'gf_new_mailpoet_plugin_admin_notices');
 function gf_new_mailpoet_plugin_admin_notices() {

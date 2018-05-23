@@ -253,7 +253,6 @@ add_action('gform_after_submission','process_mailpoet_list', 10, 2);
 function process_mailpoet_list( $entry, $form )
 {
 
-
     if ( !is_array( $entry) || !is_array($form) || empty( $entry) || empty( $form) ){
         return;
     }
@@ -264,6 +263,9 @@ function process_mailpoet_list( $entry, $form )
 
     // extract email
     $email_key = array_search('email', array_column($form['fields'], 'type'));
+    if ( false === $email_key ){
+        $email_key = array_search('email', array_column(array_map('get_object_vars', $form['fields']), 'type'));
+    }
 
 
     if ( !is_integer($email_key) ){
@@ -296,6 +298,9 @@ function process_mailpoet_list( $entry, $form )
 
     // extract name
     $name_key = array_search('name', array_column($form['fields'], 'type'));
+    if ( false === $name_key ){
+        $name_key = array_search('name', array_column(array_map('get_object_vars', $form['fields']), 'type'));
+    }
 
 
     if ( is_integer( $name_key ) ){
@@ -316,6 +321,9 @@ function process_mailpoet_list( $entry, $form )
 
     // extract mailpoet list ids
     $mp_key = array_search('mailpoet', array_column($form['fields'], 'type'));
+    if ( false === $mp_key ){
+        $mp_key = array_search('mailpoet', array_column(array_map('get_object_vars', $form['fields']), 'type'));
+    }
 
     if ( !is_integer( $mp_key) ){
         return;
@@ -356,5 +364,4 @@ function process_mailpoet_list( $entry, $form )
         Subscriber::subscribe( $subscriber_data , $mp_list );
 
     }
-    
 }
