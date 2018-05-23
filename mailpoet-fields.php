@@ -253,6 +253,7 @@ add_action('gform_after_submission','process_mailpoet_list', 10, 2);
 function process_mailpoet_list( $entry, $form )
 {
 
+
     if ( !is_array( $entry) || !is_array($form) || empty( $entry) || empty( $form) ){
         return;
     }
@@ -264,19 +265,29 @@ function process_mailpoet_list( $entry, $form )
     // extract email
     $email_key = array_search('email', array_column($form['fields'], 'type'));
 
-    if ( empty($email_key) ){
+
+    if ( !is_integer($email_key) ){
         return;
     }
 
     $email_id = $form['fields'][$email_key]->id;
     $email = rgar( $entry, $email_id );
+
+
     if ( empty($email) ){
         return;
     }
 
     $subscriber = Subscriber::findOne( $email );
+
+
     if ( false !== $subscriber ){
-        return;
+        $segments = $subscriber->segments()->findArray();
+
+        if ( !empty($segments) ){
+            return;
+        }
+        
     }
 
     $subscriber_data = array(
@@ -285,6 +296,7 @@ function process_mailpoet_list( $entry, $form )
 
     // extract name
     $name_key = array_search('name', array_column($form['fields'], 'type'));
+
 
     if ( is_integer( $name_key ) ){
 
@@ -319,7 +331,21 @@ function process_mailpoet_list( $entry, $form )
         $lst = rgar( $entry, $value );
 
         if ( !empty($lst) ){
-            $mp_list[] = $lst;
+            
+            if ( is_integer($lst) || is_numeric($lst) ){
+                
+                $mp_list[] = $lst;
+
+            } else {
+
+                $list = Segment::where('name', $lst)->findArray();
+
+                if ( !empty($list) ){
+                    $list = array_shift($list);
+                    $mp_list[] = isset($list['id']) ? $list['id'] : null;
+                }
+
+            }
         }
         
     }
