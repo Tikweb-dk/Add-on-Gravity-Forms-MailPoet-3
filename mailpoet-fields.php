@@ -40,18 +40,22 @@ class GF_Field_Mailpoet extends GF_Field {
     public function list_choice( $form_id, $field_id, $choices = array() ){
 
         $ret = '';
-        $ret .= '<ul class="gfield_checkbox">';
+        $ret .= '<ul class="gfield_checkbox" id="input_'.$form_id.'_'.$field_id.'">';
 
         foreach ($choices as $key => $value) {
+
             $key += 2;
-            $ret .= '<li class="gchoice">';
+            
+            $id = $form_id.'_'.$field_id.'_'.$key;
+            
+            $ret .= '<li class="gchoice_'.$id.'">';
             $ret .= '<input type="checkbox"';
 
-            $ret .= 'name="input_' . $field_id . '.'.$key.'" id="input_' . $field_id . '_' . $form_id . '_'.$key.'"';
+            $ret .= 'name="input_' . $field_id . '.'.$key.'" id="choice_'.$id.'"';
             $ret .= 'value="'.$value['value'].'"';
-            $ret .= 'tabindex="'.$key.'"';
+            $ret .= 'style="margin-right:5px;"';
             $ret .= ' >';
-            $ret .= '<label>';
+            $ret .= '<label for="choice_'.$id.'" id="label_'.$id.'">';
             // $ret .= '<label for="input_' . $field_id . '.'.$key.'" >';
             $ret .= $value['text'];
             $ret .= '</label>';
@@ -118,9 +122,8 @@ class GF_Field_Mailpoet extends GF_Field {
 
         $markup_asdf = $this->list_choice( $form_id, $field_id, $this->choices );
 
-        return "<div class='ginput_container ginput_container_checkbox' id='{$field_id}'>
+        return "<div class='ginput_container ginput_container_checkbox'>
                     {$markup_asdf}
-                    <div class='gf_clear gf_clear_complex'></div>
                 </div>";
     }
 
@@ -201,167 +204,3 @@ class GF_Field_Mailpoet extends GF_Field {
 }
 
 GF_Fields::register( new GF_Field_Mailpoet() );
-
-
-add_action('gform_predefined_choices','mailpoet_predefiend_list' );
-function mailpoet_predefiend_list( $choices )
-{
-    $ret = array();
-
-    $segments = Segment::where_not_equal('type', Segment::TYPE_WP_USERS)->findArray();
-
-    foreach ($segments as $s_key => $s_val) {
-
-        $ret['Mailpoet List'][] = $s_val['name'].'|'.$s_val['id'];
-
-    }
-
-   foreach ($choices as $key => $value) {
-        $ret[$key] = $value;
-   }
-
-    return $ret;
-}
-
-add_action( 'gform_editor_js_set_default_values', 'mailpoet_list_set_default' );
-function mailpoet_list_set_default()
-{
-    $segments = Segment::where_not_equal('type', Segment::TYPE_WP_USERS)->findArray();
-    
-    $choice = '[';    
-    foreach ($segments as $key => $value) {
-        $choice .= 'new Choice("'.$value["name"].'","'.$value["id"].'"), ';
-    }
-
-    $choice .= '];';
-
-    if ( empty($segments) ){
-        $choice = "[new Choice('List one'), new Choice('List two'), new Choice('Please set a list')];";
-    }
-
-    ?>
-
-    case "mailpoet":
-        field.label = "Subscribe";
-        field.choices = <?= $choice; ?>
-        break;
-    <?php
-}
-
-
-add_action('gform_after_submission','process_mailpoet_list', 10, 2);
-function process_mailpoet_list( $entry, $form )
-{
-
-    if ( !is_array( $entry) || !is_array($form) || empty( $entry) || empty( $form) ){
-        return;
-    }
-
-    if ( !isset($form['fields']) ){
-        return;
-    }
-
-    // extract email
-    $email_key = array_search('email', array_column($form['fields'], 'type'));
-    if ( false === $email_key ){
-        $email_key = array_search('email', array_column(array_map('get_object_vars', $form['fields']), 'type'));
-    }
-
-
-    if ( !is_integer($email_key) ){
-        return;
-    }
-
-    $email_id = $form['fields'][$email_key]->id;
-    $email = rgar( $entry, $email_id );
-
-
-    if ( empty($email) ){
-        return;
-    }
-
-    $subscriber = Subscriber::findOne( $email );
-
-
-    if ( false !== $subscriber ){
-        $segments = $subscriber->segments()->findArray();
-
-        if ( !empty($segments) ){
-            return;
-        }
-        
-    }
-
-    $subscriber_data = array(
-        'email' => $email
-    );
-
-    // extract name
-    $name_key = array_search('name', array_column($form['fields'], 'type'));
-    if ( false === $name_key ){
-        $name_key = array_search('name', array_column(array_map('get_object_vars', $form['fields']), 'type'));
-    }
-
-
-    if ( is_integer( $name_key ) ){
-
-        $fname_id = array_search('First', array_column($form['fields'][$name_key]->inputs, 'label'));
-        $fname_id = $form['fields'][$name_key]->inputs[$fname_id]['id'];
-
-        $lname_id = array_search('Last', array_column($form['fields'][$name_key]->inputs, 'label'));
-        $lname_id = $form['fields'][$name_key]->inputs[$lname_id]['id'];
-
-        $first_name = rgar( $entry, $fname_id );
-        $last_name = rgar( $entry, $lname_id );
-
-        $subscriber_data['first_name'] = $first_name;
-        $subscriber_data['last_name'] = $last_name;
-
-    }
-
-    // extract mailpoet list ids
-    $mp_key = array_search('mailpoet', array_column($form['fields'], 'type'));
-    if ( false === $mp_key ){
-        $mp_key = array_search('mailpoet', array_column(array_map('get_object_vars', $form['fields']), 'type'));
-    }
-
-    if ( !is_integer( $mp_key) ){
-        return;
-    }
-
-    $mp_id = (array) $form['fields'][$mp_key];
-    $mp_id = array_column($mp_id['inputs'], 'id');
-
-
-    $mp_list = [];
-
-    foreach ($mp_id as $key => $value) {
-        $lst = rgar( $entry, $value );
-
-        if ( !empty($lst) ){
-            
-            if ( is_integer($lst) || is_numeric($lst) ){
-                
-                $mp_list[] = $lst;
-
-            } else {
-
-                $list = Segment::where('name', $lst)->findArray();
-
-                if ( !empty($list) ){
-                    $list = array_shift($list);
-                    $mp_list[] = isset($list['id']) ? $list['id'] : null;
-                }
-
-            }
-        }
-        
-    }
-
-    // subscribe to 
-    if ( !empty($mp_list) ){
-        
-        Subscriber::subscribe( $subscriber_data , $mp_list );
-
-    }
-}
