@@ -1,5 +1,18 @@
 == Changelog ==
 
+= 1.1.2 - 2018-05-24 =
+* Resolved - PHP Fatal error: Class ‘GF_Field’ not found in ../wp-content/plugins/add-on-gravity-forms-mailpoet/mailpoet-fields.php on line 6
+
+= 1.1.2
+* some fixing.
+* Add GDPR Competitivity. 
+
+= 1.1.1 - 2018-05-23 =
+* Updated two files (add-on-gravity-forms-mailpoet.php, mailpoet-fields.php)
+
+= 1.1.0 - 2018-05-22 =
+* Added a new features, register with the lists that the user wants, not that all are mandatory.
+
 = 1.0.3 - 2018-03-07 =
 * Subscribed people now allow to be added to the new lists.
 * Changed the short title of 'Gravity Form' menu.
