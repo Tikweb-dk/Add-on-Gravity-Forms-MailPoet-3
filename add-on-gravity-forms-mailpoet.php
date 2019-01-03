@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Add-on Gravity Forms - Mailpoet 3
  * Description:       Add a MailPoet 3 signup field to your Gravity Forms.
- * Version:           1.1.1
+ * Version:           1.1.3
  * Author:            Tikweb
  * Author URI:        http://www.tikweb.dk/
  * License:           GPL-2.0+
@@ -108,6 +108,12 @@ register_deactivation_hook(__FILE__, 'gf_new_mailpoet_plugin_deactivation');
 function gf_new_mailpoet_plugin_deactivation() {
 	delete_option('gf_new_mailpoet_plugin_deferred_admin_notices');
 }
+
+/**
+ * array_column alternatives for PHP version less than PHP 5.5
+ * this file / function has no effect on php version greater than php 5.5
+ */
+include plugin_dir_path( __FILE__ ) .'/array_column.php';
 
 /**
  * Mailpoet class load 
