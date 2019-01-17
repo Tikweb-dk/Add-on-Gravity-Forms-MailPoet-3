@@ -3,9 +3,9 @@ Contributors: kasperta
 Donate link: http://www.tikweb.dk/donate/
 Tags: mailpoet, gravity forms, gravityforms, form, forms, contact form, wysija, woocommerce, e-commerce, mail, email, e-mail, extension, add-on, newsletter, newsletters, subscription, checkout, list, lists, double opt-in
 Requires at least: 4.6
-Tested up to: 4.9
+Tested up to: 5.0.3
 Requires PHP: 5.2
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 
 Create MailPoet 3 newsletter subscribers from Gravity Form entries.
 
@@ -36,7 +36,7 @@ Requires Gravity Forms version 1.9.16 or higher and MailPoet 3.0 or higher.
 
 == Changelog ==
 
-= 1.1.3 - 2018-07-23 =
-* Add array_column patch for PHP 5.4
+= 1.1.4 - 2019-01-17 =
+* Feature - Set option to not send subscription confirmation email. Thanks Jonathan Pasquier.
 
 [Changelog](https://plugins.svn.wordpress.org/add-on-gravity-forms-mailpoet/trunk/changelog.txt)
