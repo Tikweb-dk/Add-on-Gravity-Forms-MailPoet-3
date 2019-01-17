@@ -77,8 +77,8 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
         }
 
         $feedName  = $feed['meta']['feedname'];
-
-        // Email validation option
+        
+        // Email validation options
         $skipEmalValidation  = isset($feed['meta']['skip_mailpoet_email_validation']) && $feed['meta']['skip_mailpoet_email_validation'] == '1';
         
         // Get out of here if no lists are specified
@@ -108,15 +108,12 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
           'first_name' => $merge_vars['first_name'],
           'last_name' => $merge_vars['last_name'],
         );
-
+        
         $options = array();
         
         if ($skipEmalValidation) {
             $options['send_confirmation_email'] = false;
             $subscriber_data['status'] = 'subscribed';
-        }else{
-            $options['send_confirmation_email'] = true;
-            $subscriber_data['status'] = 'unconfirmed';
         }
 
         try {
