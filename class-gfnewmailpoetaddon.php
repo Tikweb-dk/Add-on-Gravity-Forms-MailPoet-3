@@ -114,6 +114,9 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
         if ($skipEmalValidation) {
             $options['send_confirmation_email'] = false;
             $subscriber_data['status'] = 'subscribed';
+        }else{
+            $options['send_confirmation_email'] = true;
+            $subscriber_data['status'] = 'unconfirmed';
         }
 
         try {
