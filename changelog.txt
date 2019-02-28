@@ -1,6 +1,6 @@
 == Changelog ==
 
-= 1.1.5 - 2019-01-17 =
+= 1.1.5 - 2019-02-28 =
 * Fixes - Issues with latest Mailpoet v3.19.3
 * Fixes - Issues with WordPress 5.1
 * Fixes - Issues related to Mailpoet lists not updating and confirmation email not sent.
@@ -17,7 +17,7 @@
 
 = 1.1.2
 * some fixing.
-* Add GDPR Competitivity. 
+* Add GDPR Competitivity.
 
 = 1.1.1 - 2018-05-23 =
 * Updated two files (add-on-gravity-forms-mailpoet.php, mailpoet-fields.php)
