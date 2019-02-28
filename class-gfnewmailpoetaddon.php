@@ -110,7 +110,7 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
         );
         
         $options = array();
-        
+
         if ($skipEmalValidation) {
             $options['send_confirmation_email'] = false;
             $subscriber_data['status'] = 'subscribed';
@@ -118,6 +118,7 @@ class GFNEWMailPoetAddOn extends GFFeedAddOn {
 
         try {
           $subscriber_data = \MailPoet\API\API::MP('v1')->addSubscriber($subscriber_data, $mailpoetlists, $options);
+          
         } catch(Exception $exception) {
             
             if ( 'This subscriber already exists.' == $exception->getMessage() ){
