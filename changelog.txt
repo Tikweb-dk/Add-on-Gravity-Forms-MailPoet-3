@@ -1,5 +1,14 @@
 == Changelog ==
 
+= 1.1.5 - 2019-01-17 =
+* Fixes - Issues with latest Mailpoet v3.19.3
+* Fixes - Issues with WordPress 5.1
+* Fixes - Issues related to Mailpoet lists not updating and confirmation email not sent.
+
+
+= 1.1.4 - 2019-01-17 =
+* Feature - Set option to not send subscription confirmation email. Thanks Jonathan Pasquier.
+
 = 1.1.3 - 2018-07-23 =
 * Add array_column patch for PHP 5.4
 
