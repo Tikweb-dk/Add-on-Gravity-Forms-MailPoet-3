@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Add-on Gravity Forms - Mailpoet 3
  * Description:       Add a MailPoet 3 signup field to your Gravity Forms.
- * Version:           1.1.4
+ * Version:           1.1.5
  * Author:            Tikweb
  * Author URI:        http://www.tikweb.dk/
  * License:           GPL-2.0+
@@ -120,6 +120,7 @@ include plugin_dir_path( __FILE__ ) .'/array_column.php';
  */
 use MailPoet\Models\Subscriber;
 use MailPoet\Models\Segment;
+use MailPoet\Subscribers\ConfirmationEmailMailer;
 
 /**
  * Add mailpoet list to choice.
@@ -284,10 +285,18 @@ function process_mailpoet_list( $entry, $form )
         
     }
 
-    // subscribe to 
+    // subscribe to
     if ( !empty($mp_list) ){
-        
-        Subscriber::subscribe( $subscriber_data , $mp_list );
+
+        $subscriber_data['segments'] = $mp_list;
+
+        $subscriber = Subscriber::createOrUpdate($subscriber_data);
+
+        if(!empty($subscriber)){
+            // Send signup confirmation email
+            $sender = new ConfirmationEmailMailer();
+            $sender->sendConfirmationEmail($subscriber);
+        }
 
     }
 }
